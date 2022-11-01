@@ -1,0 +1,5 @@
+# created by virtualenv automatically
+*.bat
+*.nu
+*.exe
+.idea

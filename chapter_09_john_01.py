@@ -20,7 +20,10 @@ if __name__ == '__main__':
     # we store the path to the input file as a Path object because it
     # allows us to properly resolve it, and determine if it exists
     # when it does not exist, we exit the program
-    input_file = Path(str(input('Enter file: ')).strip()).resolve() or None
+    input_file = Path(str(input('Enter file: ')).strip()).resolve()
+    if not input_file or input_file.is_dir():
+        print('Unsupported path to file given')
+        exit()
     if not input_file.exists():
         print(f'File "{input_file}" does not exist.')
         exit()
@@ -37,7 +40,7 @@ if __name__ == '__main__':
     for _from, _email in matched:
         registry[_email] += 1
 
-    if registry:
+    if len(registry) > 0:
         # use the "sorted" function to sort by count in DESC (reverse) order
         emails = sorted(registry.items(), key=lambda item: item[1], reverse=True)
         print(f'Top FROM email = "{emails[0][0]}", with {emails[0][1]} emails')
